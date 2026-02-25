@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swiper Demo con Lightbox</title>
+
+  <!-- Link CSS di Swiper -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
+  />
+
+  <!-- Link CSS di GLightbox -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"
+  />
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      background: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .swiper {
+      width: 100%;
+      height: 80vh;
+      background: transparent;
+    }
+
+    .swiper-wrapper {
+      height: 100%;
+    }
+
+    .swiper-slide {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .swiper-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      cursor: pointer; /* indica che si può cliccare */
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Swiper container -->
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <a href="images/img1.jpg" class="glightbox"><img src="images/img1.jpg" alt="img1"></a>
+      </div>
+      <div class="swiper-slide">
+        <a href="images/img2.jpg" class="glightbox"><img src="images/img2.jpg" alt="img2"></a>
+      </div>
+      <div class="swiper-slide">
+        <a href="images/img3.jpg" class="glightbox"><img src="images/img3.jpg" alt="img3"></a>
+      </div>
+      <div class="swiper-slide">
+        <a href="images/img4.jpg" class="glightbox"><img src="images/img4.jpg" alt="img4"></a>
+      </div>
+      <div class="swiper-slide">
+        <a href="images/img5.jpg" class="glightbox"><img src="images/img5.jpg" alt="img5"></a>
+      </div>
+      <div class="swiper-slide">
+        <a href="images/img6.jpg" class="glightbox"><img src="images/img6.jpg" alt="img6"></a>
+      </div>
+      <div class="swiper-slide">
+        <a href="images/img7.jpg" class="glightbox"><img src="images/img7.jpg" alt="img7"></a>
+      </div>
+      <div class="swiper-slide">
+        <a href="images/img8.jpg" class="glightbox"><img src="images/img8.jpg" alt="img8"></a>
+      </div>
+      <div class="swiper-slide">
+        <a href="images/img9.jpg" class="glightbox"><img src="images/img9.jpg" alt="img9"></a>
+      </div>
+      <div class="swiper-slide">
+        <a href="images/img10.jpg" class="glightbox"><img src="images/img10.jpg" alt="img10"></a>
+      </div>
+    </div>
+
+    <!-- Pagine / bullets -->
+    <div class="swiper-pagination"></div>
+
+    <!-- Frecce -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+
+  <!-- Script JS di Swiper -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+  <!-- Script JS di GLightbox -->
+  <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+
+  <script>
+    // Inizializzazione Swiper
+    const swiper = new Swiper('.swiper', {
+      loop: true,
+      pagination: { el: '.swiper-pagination', clickable: true },
+      navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+      autoplay: { delay: 2500, disableOnInteraction: false },
+    });
+
+    // Inizializzazione GLightbox
+    const lightbox = GLightbox({
+      selector: '.glightbox',
+      touchNavigation: true,
+      loop: true,
+      zoomable: true
+    });
+  </script>
+
+</body>
+</html>
