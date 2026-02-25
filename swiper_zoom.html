@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Swiper Demo con Lightbox</title>
+  <title>Swiper + PhotoSwipe</title>
 
-  <!-- Link CSS di Swiper -->
+  <!-- Swiper CSS -->
   <link
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
   />
 
-  <!-- Link CSS di GLightbox -->
+  <!-- PhotoSwipe CSS -->
   <link
     rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"
+    href="https://cdn.jsdelivr.net/npm/photoswipe@5/dist/photoswipe.css"
   />
 
   <style>
@@ -43,8 +43,6 @@
     .swiper-slide {
       width: 100%;
       height: 100%;
-      overflow: hidden;
-      background: transparent;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -54,64 +52,96 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
-      display: block;
-      cursor: pointer; /* indica che si può cliccare */
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
 
-  <!-- Swiper container -->
+  <!-- Swiper -->
   <div class="swiper">
     <div class="swiper-wrapper">
+
+      <!-- IMPORTANTE: data-pswp-width e height -->
       <div class="swiper-slide">
-        <a href="images/img1.jpg" class="glightbox"><img src="images/img1.jpg" alt="img1"></a>
+        <a href="images/img1.jpg" data-pswp-width="1440" data-pswp-height="1440">
+          <img src="images/img1.jpg" alt="img1">
+        </a>
       </div>
+
       <div class="swiper-slide">
-        <a href="images/img2.jpg" class="glightbox"><img src="images/img2.jpg" alt="img2"></a>
+        <a href="images/img2.jpg" data-pswp-width="675" data-pswp-height="675">
+          <img src="images/img2.jpg" alt="img2">
+        </a>
       </div>
+
       <div class="swiper-slide">
-        <a href="images/img3.jpg" class="glightbox"><img src="images/img3.jpg" alt="img3"></a>
+        <a href="images/img3.jpg" data-pswp-width="1440" data-pswp-height="1800">
+          <img src="images/img3.jpg" alt="img3">
+        </a>
       </div>
+
       <div class="swiper-slide">
-        <a href="images/img4.jpg" class="glightbox"><img src="images/img4.jpg" alt="img4"></a>
+        <a href="images/img4.jpg" data-pswp-width="1440" data-pswp-height="1800">
+          <img src="images/img4.jpg" alt="img4">
+        </a>
       </div>
+
       <div class="swiper-slide">
-        <a href="images/img5.jpg" class="glightbox"><img src="images/img5.jpg" alt="img5"></a>
+        <a href="images/img5.jpg" data-pswp-width="1280" data-pswp-height="1600">
+          <img src="images/img5.jpg" alt="img5">
+        </a>
       </div>
+
       <div class="swiper-slide">
-        <a href="images/img6.jpg" class="glightbox"><img src="images/img6.jpg" alt="img6"></a>
+        <a href="images/img6.jpg" data-pswp-width="1280" data-pswp-height="1600">
+          <img src="images/img6.jpg" alt="img6">
+        </a>
       </div>
+
+       <div class="swiper-slide">
+        <a href="images/img7.jpg" data-pswp-width="1024" data-pswp-height="819">
+          <img src="images/img7.jpg" alt="img7">
+        </a>
+      </div>
+
+       <div class="swiper-slide">
+        <a href="images/img8.jpg" data-pswp-width="960" data-pswp-height="437">
+          <img src="images/img8.jpg" alt="img8">
+        </a>
+      </div>
+
+       <div class="swiper-slide">
+        <a href="images/img9.jpg" data-pswp-width="1024" data-pswp-height="1280">
+          <img src="images/img9.jpg" alt="img9">
+        </a>
+      </div>
+
       <div class="swiper-slide">
-        <a href="images/img7.jpg" class="glightbox"><img src="images/img7.jpg" alt="img7"></a>
+        <a href="images/img10.jpg" data-pswp-width="1024" data-pswp-height="1280">
+          <img src="images/img10.jpg" alt="img10">
+        </a>
       </div>
-      <div class="swiper-slide">
-        <a href="images/img8.jpg" class="glightbox"><img src="images/img8.jpg" alt="img8"></a>
-      </div>
-      <div class="swiper-slide">
-        <a href="images/img9.jpg" class="glightbox"><img src="images/img9.jpg" alt="img9"></a>
-      </div>
-      <div class="swiper-slide">
-        <a href="images/img10.jpg" class="glightbox"><img src="images/img10.jpg" alt="img10"></a>
-      </div>
+
+      
+
+
+      <!-- continua per le altre immagini -->
+
     </div>
 
-    <!-- Pagine / bullets -->
     <div class="swiper-pagination"></div>
-
-    <!-- Frecce -->
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
   </div>
 
-  <!-- Script JS di Swiper -->
+  <!-- Swiper JS -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
-  <!-- Script JS di GLightbox -->
-  <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+  <!-- PhotoSwipe JS (ES module) -->
+  <script type="module">
+    import PhotoSwipeLightbox from 'https://cdn.jsdelivr.net/npm/photoswipe@5/dist/photoswipe-lightbox.esm.js';
 
-  <script>
-    // Inizializzazione Swiper
     const swiper = new Swiper('.swiper', {
       loop: true,
       pagination: { el: '.swiper-pagination', clickable: true },
@@ -119,13 +149,16 @@
       autoplay: { delay: 2500, disableOnInteraction: false },
     });
 
-    // Inizializzazione GLightbox
-    const lightbox = GLightbox({
-      selector: '.glightbox',
-      touchNavigation: true,
-      loop: true,
-      zoomable: true
+    const lightbox = new PhotoSwipeLightbox({
+      gallery: '.swiper',
+      children: 'a',
+      pswpModule: () => import('https://cdn.jsdelivr.net/npm/photoswipe@5/dist/photoswipe.esm.js'),
+      wheelToZoom: true,      // ✅ zoom con rotella
+      pinchToClose: true,
+      clickToCloseNonZoomable: true
     });
+
+    lightbox.init();
   </script>
 
 </body>
