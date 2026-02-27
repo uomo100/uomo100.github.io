@@ -1,168 +1,211 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Swiper + PhotoSwipe</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swiper + PhotoSwipe Pro</title>
 
-  <!-- Swiper CSS -->
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
-  />
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
 
-  <!-- PhotoSwipe CSS -->
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/photoswipe@5/dist/photoswipe.css"
-  />
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/photoswipe@5/dist/photoswipe.css"/>
 
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      font-family: Arial, sans-serif;
-      height: 100%;
-      background: transparent;
-    }
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+  background: transparent;
+}
 
-    .swiper {
-      width: 100%;
-      height: 100%;
-      max-height: 100vh;
-      max-width: 100vw;
-    }
+.swiper {
+  width: 100%;
+  max-height: 100vh;
+  transition: height 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
 
-    .swiper-wrapper {
-      height: 100%;
-    }
+.swiper-wrapper {
+  align-items: center;
+}
 
-    .swiper-slide {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-  }
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-    .swiper-slide a {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      height: 100%;
-  }
+.swiper-slide a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
 
-    .swiper-slide img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-  }
-  </style>
+.swiper-slide img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+</style>
 </head>
 <body>
 
-  <!-- Swiper -->
-  <div class="swiper">
-    <div class="swiper-wrapper">
+<div class="swiper">
+  <div class="swiper-wrapper">
 
-      <!-- IMPORTANTE: data-pswp-width e height -->
-      <div class="swiper-slide">
-        <a href="images/img1.jpg" data-pswp-width="1440" data-pswp-height="1440">
-          <img src="images/img1.jpg" alt="img1">
-        </a>
-      </div>
-
-      <div class="swiper-slide">
-        <a href="images/img2.jpg" data-pswp-width="675" data-pswp-height="675">
-          <img src="images/img2.jpg" alt="img2">
-        </a>
-      </div>
-
-      <div class="swiper-slide">
-        <a href="images/img3.jpg" data-pswp-width="1440" data-pswp-height="1800">
-          <img src="images/img3.jpg" alt="img3">
-        </a>
-      </div>
-
-      <div class="swiper-slide">
-        <a href="images/img4.jpg" data-pswp-width="1440" data-pswp-height="1800">
-          <img src="images/img4.jpg" alt="img4">
-        </a>
-      </div>
-
-      <div class="swiper-slide">
-        <a href="images/img5.jpg" data-pswp-width="1280" data-pswp-height="1600">
-          <img src="images/img5.jpg" alt="img5">
-        </a>
-      </div>
-
-      <div class="swiper-slide">
-        <a href="images/img6.jpg" data-pswp-width="1280" data-pswp-height="1600">
-          <img src="images/img6.jpg" alt="img6">
-        </a>
-      </div>
-
-       <div class="swiper-slide">
-        <a href="images/img7.jpg" data-pswp-width="1024" data-pswp-height="819">
-          <img src="images/img7.jpg" alt="img7">
-        </a>
-      </div>
-
-       <div class="swiper-slide">
-        <a href="images/img8.jpg" data-pswp-width="960" data-pswp-height="437">
-          <img src="images/img8.jpg" alt="img8">
-        </a>
-      </div>
-
-       <div class="swiper-slide">
-        <a href="images/img9.jpg" data-pswp-width="1024" data-pswp-height="1280">
-          <img src="images/img9.jpg" alt="img9">
-        </a>
-      </div>
-
-      <div class="swiper-slide">
-        <a href="images/img10.jpg" data-pswp-width="1024" data-pswp-height="1280">
-          <img src="images/img10.jpg" alt="img10">
-        </a>
-      </div>
-
-      
-
-
-      <!-- continua per le altre immagini -->
-
+    <!-- SLIDES -->
+    <div class="swiper-slide">
+      <a href="images/img1.jpg" data-pswp-width="1440" data-pswp-height="1440">
+        <img src="images/img1.jpg">
+      </a>
     </div>
 
-    <div class="swiper-pagination"></div>
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
+    <div class="swiper-slide">
+      <a href="images/img2.jpg" data-pswp-width="675" data-pswp-height="675">
+        <img src="images/img2.jpg">
+      </a>
+    </div>
+
+    <div class="swiper-slide">
+      <a href="images/img3.jpg" data-pswp-width="1440" data-pswp-height="1800">
+        <img src="images/img3.jpg">
+      </a>
+    </div>
+
+    <div class="swiper-slide">
+      <a href="images/img4.jpg" data-pswp-width="1440" data-pswp-height="1800">
+        <img src="images/img4.jpg">
+      </a>
+    </div>
+
+    <div class="swiper-slide">
+      <a href="images/img5.jpg" data-pswp-width="1280" data-pswp-height="1600">
+        <img src="images/img5.jpg">
+      </a>
+    </div>
+
+    <div class="swiper-slide">
+      <a href="images/img6.jpg" data-pswp-width="1280" data-pswp-height="1600">
+        <img src="images/img6.jpg">
+      </a>
+    </div>
+
+    <div class="swiper-slide">
+      <a href="images/img7.jpg" data-pswp-width="1024" data-pswp-height="819">
+        <img src="images/img7.jpg">
+      </a>
+    </div>
+
+    <div class="swiper-slide">
+      <a href="images/img8.jpg" data-pswp-width="960" data-pswp-height="437">
+        <img src="images/img8.jpg">
+      </a>
+    </div>
+
+    <div class="swiper-slide">
+      <a href="images/img9.jpg" data-pswp-width="1024" data-pswp-height="1280">
+        <img src="images/img9.jpg">
+      </a>
+    </div>
+
+    <div class="swiper-slide">
+      <a href="images/img10.jpg" data-pswp-width="1024" data-pswp-height="1280">
+        <img src="images/img10.jpg">
+      </a>
+    </div>
+
   </div>
 
-  <!-- Swiper JS -->
-  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+  <div class="swiper-pagination"></div>
+  <div class="swiper-button-next"></div>
+  <div class="swiper-button-prev"></div>
+</div>
 
-  <!-- PhotoSwipe JS (ES module) -->
-  <script type="module">
-    import PhotoSwipeLightbox from 'https://cdn.jsdelivr.net/npm/photoswipe@5/dist/photoswipe-lightbox.esm.js';
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
-    const swiper = new Swiper('.swiper', {
-      loop: true,
-      pagination: { el: '.swiper-pagination', clickable: true },
-      navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-      autoplay: { delay: 2500, disableOnInteraction: false },
-    });
+<script type="module">
+import PhotoSwipeLightbox from 
+'https://cdn.jsdelivr.net/npm/photoswipe@5/dist/photoswipe-lightbox.esm.js';
 
-    const lightbox = new PhotoSwipeLightbox({
-      gallery: '.swiper',
-      children: 'a',
-      pswpModule: () => import('https://cdn.jsdelivr.net/npm/photoswipe@5/dist/photoswipe.esm.js'),
-      wheelToZoom: true,      // ✅ zoom con rotella
-      pinchToClose: true,
-      clickToCloseNonZoomable: true
-    });
+const swiper = new Swiper('.swiper', {
+  loop: true,
+  speed: 700,
+  pagination: { el: '.swiper-pagination', clickable: true },
+  navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+  autoplay: { delay: 2500, disableOnInteraction: false },
+});
 
-    lightbox.init();
-  </script>
+/* -------- HEIGHT ENGINE -------- */
+
+function getHeightFromSlide(slide) {
+  if (!slide) return swiper.height;
+
+  const link = slide.querySelector('a');
+  if (!link) return swiper.height;
+
+  const w = parseInt(link.dataset.pswpWidth);
+  const h = parseInt(link.dataset.pswpHeight);
+
+  if (!w || !h) return swiper.height;
+
+  const ratio = h / w;
+  let newHeight = swiper.width * ratio;
+
+  const maxHeight = window.innerHeight;
+  if (newHeight > maxHeight) newHeight = maxHeight;
+
+  return newHeight;
+}
+
+function updateHeightInstant() {
+  const activeSlide = swiper.slides[swiper.activeIndex];
+  swiper.el.style.height = getHeightFromSlide(activeSlide) + 'px';
+}
+
+function updateHeightSmooth() {
+  const activeIndex = swiper.activeIndex;
+  const activeSlide = swiper.slides[activeIndex];
+
+  let nextIndex = swiper.swipeDirection === 'next'
+    ? activeIndex + 1
+    : activeIndex - 1;
+
+  if (nextIndex < 0) nextIndex = swiper.slides.length - 1;
+  if (nextIndex >= swiper.slides.length) nextIndex = 0;
+
+  const nextSlide = swiper.slides[nextIndex];
+
+  const h1 = getHeightFromSlide(activeSlide);
+  const h2 = getHeightFromSlide(nextSlide);
+
+  const progress = Math.abs(swiper.progress * (swiper.slides.length - 1) - activeIndex);
+  const interpolated = h1 + (h2 - h1) * progress;
+
+  swiper.el.style.height = interpolated + 'px';
+}
+
+swiper.on('setTranslate', updateHeightSmooth);
+swiper.on('slideChangeTransitionEnd', updateHeightInstant);
+window.addEventListener('resize', updateHeightInstant);
+window.addEventListener('load', updateHeightInstant);
+
+/* -------- PHOTOSWIPE -------- */
+
+const lightbox = new PhotoSwipeLightbox({
+  gallery: '.swiper',
+  children: 'a',
+  pswpModule: () => import(
+    'https://cdn.jsdelivr.net/npm/photoswipe@5/dist/photoswipe.esm.js'
+  ),
+  wheelToZoom: true,
+  pinchToClose: true
+});
+
+lightbox.init();
+</script>
 
 </body>
 </html>
