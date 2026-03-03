@@ -159,9 +159,11 @@ function setHeight(value) {
 
 /* ---------- TRANSIZIONE PULITA ---------- */
 
-swiper.on('init', () => {
-  const firstSlide = swiper.slides[swiper.activeIndex];
-  setHeight(getHeightFromSlide(firstSlide));
+swiper.on('afterInit', () => {
+  const realSlide = swiper.slides[swiper.activeIndex];
+  requestAnimationFrame(() => {
+    setHeight(getHeightFromSlide(realSlide));
+  });
 });
 
 swiper.on('slideChangeTransitionStart', () => {
@@ -185,6 +187,11 @@ swiper.on('slideChangeTransitionEnd', () => {
   setHeight(getHeightFromSlide(activeSlide));
 });
 
+swiper.on('imagesReady', () => {
+  const activeSlide = swiper.slides[swiper.activeIndex];
+  setHeight(getHeightFromSlide(activeSlide));
+});
+  
 window.addEventListener('resize', () => {
   const activeSlide = swiper.slides[swiper.activeIndex];
   setHeight(getHeightFromSlide(activeSlide));
@@ -221,3 +228,4 @@ lightbox.init();
 
 </body>
 </html>
+
