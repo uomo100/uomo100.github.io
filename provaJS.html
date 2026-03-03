@@ -205,12 +205,9 @@ const lightbox = new PhotoSwipeLightbox({
   pswpModule: () => import(
     'https://cdn.jsdelivr.net/npm/photoswipe@5/dist/photoswipe.esm.js'
   ),
-
   wheelToZoom: true,
   pinchToClose: true,
-
-  bgOpacity: 0.8,
-
+  bgOpacity: 0.9,
   paddingFn: (viewportSize) => {
     return {
       top: viewportSize.y * 0.1,
@@ -218,14 +215,23 @@ const lightbox = new PhotoSwipeLightbox({
       left: viewportSize.x * 0.1,
       right: viewportSize.x * 0.1
     };
-  },
-
-  maxZoomLevel: 4
+  }
 });
 
 lightbox.init();
+
+lightbox.on('open', () => {
+  swiper.autoplay.stop();
+  swiper.allowTouchMove = false;
+});
+
+lightbox.on('close', () => {
+  swiper.autoplay.start();
+  swiper.allowTouchMove = true;
+});
 </script>
 
 </body>
 </html>
+
 
