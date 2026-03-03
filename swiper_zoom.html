@@ -56,7 +56,6 @@ html, body {
 <div class="swiper">
   <div class="swiper-wrapper">
 
-    <!-- SLIDES -->
     <div class="swiper-slide">
       <a href="images/img1.jpg" data-pswp-width="1440" data-pswp-height="1440">
         <img src="images/img1.jpg">
@@ -130,51 +129,7 @@ html, body {
 import PhotoSwipeLightbox from 
 'https://cdn.jsdelivr.net/npm/photoswipe@5/dist/photoswipe-lightbox.esm.js';
 
-const EASING = [0.65, 0.0, 0.35, 1.0];
-
-/* -------- CUBIC BEZIER SOLVER -------- */
-
-function cubicBezier(p1x, p1y, p2x, p2y) {
-  return function (t) {
-    const cx = 3 * p1x;
-    const bx = 3 * (p2x - p1x) - cx;
-    const ax = 1 - cx - bx;
-
-    const cy = 3 * p1y;
-    const by = 3 * (p2y - p1y) - cy;
-    const ay = 1 - cy - by;
-
-    function sampleCurveX(t) {
-      return ((ax * t + bx) * t + cx) * t;
-    }
-
-    function sampleCurveY(t) {
-      return ((ay * t + by) * t + cy) * t;
-    }
-
-    function sampleCurveDerivativeX(t) {
-      return (3 * ax * t + 2 * bx) * t + cx;
-    }
-
-    function solveCurveX(x) {
-      let t2 = x;
-      for (let i = 0; i < 8; i++) {
-        const x2 = sampleCurveX(t2) - x;
-        if (Math.abs(x2) < 1e-6) return t2;
-        const d2 = sampleCurveDerivativeX(t2);
-        if (Math.abs(d2) < 1e-6) break;
-        t2 = t2 - x2 / d2;
-      }
-      return t2;
-    }
-
-    return sampleCurveY(solveCurveX(t));
-  };
-}
-
-const ease = cubicBezier(...EASING);
-
-/* -------- SWIPER -------- */
+/* ---------- SWIPER ---------- */
 
 const swiper = new Swiper('.swiper', {
   loop: true,
@@ -184,7 +139,7 @@ const swiper = new Swiper('.swiper', {
   autoplay: { delay: 2500, disableOnInteraction: false },
 });
 
-/* -------- HEIGHT ENGINE -------- */
+/* ---------- HEIGHT ENGINE ---------- */
 
 function getHeightFromSlide(slide) {
   const link = slide?.querySelector('a');
@@ -192,78 +147,50 @@ function getHeightFromSlide(slide) {
 
   const w = parseInt(link.dataset.pswpWidth);
   const h = parseInt(link.dataset.pswpHeight);
-
   if (!w || !h) return swiper.height;
 
-  const ratio = h / w;
-  let newHeight = swiper.width * ratio;
-
-  if (newHeight > window.innerHeight)
-    newHeight = window.innerHeight;
-
-  return newHeight;
+  let height = swiper.width * (h / w);
+  return Math.min(height, window.innerHeight);
 }
 
-function updateHeightInstant() {
-  const activeSlide = swiper.slides[swiper.activeIndex];
-  swiper.el.style.height =
-    getHeightFromSlide(activeSlide) + 'px';
+function setHeight(value) {
+  swiper.el.style.height = value + 'px';
 }
 
-function updateHeightSmooth() {
-  const activeIndex = swiper.activeIndex;
-  const activeSlide = swiper.slides[activeIndex];
+/* ---------- TRANSIZIONE PULITA ---------- */
 
-  let nextIndex =
-    swiper.swipeDirection === 'next'
-      ? activeIndex + 1
-      : activeIndex - 1;
-
-  if (nextIndex < 0)
-    nextIndex = swiper.slides.length - 1;
-
-  if (nextIndex >= swiper.slides.length)
-    nextIndex = 0;
-
-  const nextSlide = swiper.slides[nextIndex];
-
-  const h1 = getHeightFromSlide(activeSlide);
-  const h2 = getHeightFromSlide(nextSlide);
-
-  const rawProgress =
-    Math.abs(swiper.progress * (swiper.slides.length - 1) - activeIndex);
-
-  const easedProgress = ease(rawProgress);
-
-  const interpolated =
-    h1 + (h2 - h1) * easedProgress;
-
-  swiper.el.style.height = interpolated + 'px';
-}
-
-/* -------- ADAPTIVE SPEED -------- */
-
-swiper.on('slideChangeTransitionStart', () => {
-  const current = swiper.slides[swiper.previousIndex];
-  const next = swiper.slides[swiper.activeIndex];
-
-  const h1 = getHeightFromSlide(current);
-  const h2 = getHeightFromSlide(next);
-
-  const delta = Math.abs(h2 - h1);
-
-  const base = 400;
-  const factor = 0.25;
-
-  swiper.params.speed = base + delta * factor;
+swiper.on('init', () => {
+  const firstSlide = swiper.slides[swiper.activeIndex];
+  setHeight(getHeightFromSlide(firstSlide));
 });
 
-swiper.on('setTranslate', updateHeightSmooth);
-swiper.on('slideChangeTransitionEnd', updateHeightInstant);
-window.addEventListener('resize', updateHeightInstant);
-window.addEventListener('load', updateHeightInstant);
+swiper.on('slideChangeTransitionStart', () => {
+  const prevSlide = swiper.slides[swiper.previousIndex];
+  const nextSlide = swiper.slides[swiper.activeIndex];
 
-/* -------- PHOTOSWIPE -------- */
+  const h1 = getHeightFromSlide(prevSlide);
+  const h2 = getHeightFromSlide(nextSlide);
+
+  // stato iniziale reale
+  setHeight(h1);
+
+  // transizione verso nuovo stato (frame successivo)
+  requestAnimationFrame(() => {
+    setHeight(h2);
+  });
+});
+
+swiper.on('slideChangeTransitionEnd', () => {
+  const activeSlide = swiper.slides[swiper.activeIndex];
+  setHeight(getHeightFromSlide(activeSlide));
+});
+
+window.addEventListener('resize', () => {
+  const activeSlide = swiper.slides[swiper.activeIndex];
+  setHeight(getHeightFromSlide(activeSlide));
+});
+
+/* ---------- PHOTOSWIPE ---------- */
 
 const lightbox = new PhotoSwipeLightbox({
   gallery: '.swiper',
