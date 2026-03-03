@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Swiper GPU Smooth</title>
+<title>Swiper + PhotoSwipe Pro</title>
 
 <link rel="stylesheet"
 href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
@@ -15,14 +15,15 @@ href="https://cdn.jsdelivr.net/npm/photoswipe@5/dist/photoswipe.css"/>
 html, body {
   margin: 0;
   padding: 0;
-  height: 100%;
   overflow: hidden;
+  height: 100%;
   background: transparent;
 }
 
 .swiper {
   width: 100%;
-  height: 100vh; /* altezza fissa */
+  max-height: 100vh;
+  transition: height 0.6s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .swiper-wrapper {
@@ -44,10 +45,9 @@ html, body {
 }
 
 .swiper-slide img {
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
-  transform: translateZ(0); /* forza layer GPU */
 }
 </style>
 </head>
@@ -55,10 +55,6 @@ html, body {
 
 <div class="swiper">
   <div class="swiper-wrapper">
-
-    <!-- le tue slide restano identiche -->
-
-    <div class="swiper-wrapper">
 
     <div class="swiper-slide">
       <a href="images/img1.jpg" data-pswp-width="1440" data-pswp-height="1440">
@@ -122,10 +118,6 @@ html, body {
 
   </div>
 
-    <!-- continua con tutte le altre identiche -->
-
-  </div>
-
   <div class="swiper-pagination"></div>
   <div class="swiper-button-next"></div>
   <div class="swiper-button-prev"></div>
@@ -137,15 +129,68 @@ html, body {
 import PhotoSwipeLightbox from 
 'https://cdn.jsdelivr.net/npm/photoswipe@5/dist/photoswipe-lightbox.esm.js';
 
+/* ---------- SWIPER ---------- */
+
 const swiper = new Swiper('.swiper', {
   loop: true,
-  speed: 800,
+  speed: 700,
   pagination: { el: '.swiper-pagination', clickable: true },
   navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
   autoplay: { delay: 2500, disableOnInteraction: false },
 });
 
-/* PhotoSwipe */
+/* ---------- HEIGHT ENGINE ---------- */
+
+function getHeightFromSlide(slide) {
+  const link = slide?.querySelector('a');
+  if (!link) return swiper.height;
+
+  const w = parseInt(link.dataset.pswpWidth);
+  const h = parseInt(link.dataset.pswpHeight);
+  if (!w || !h) return swiper.height;
+
+  let height = swiper.width * (h / w);
+  return Math.min(height, window.innerHeight);
+}
+
+function setHeight(value) {
+  swiper.el.style.height = value + 'px';
+}
+
+/* ---------- TRANSIZIONE PULITA ---------- */
+
+swiper.on('init', () => {
+  const firstSlide = swiper.slides[swiper.activeIndex];
+  setHeight(getHeightFromSlide(firstSlide));
+});
+
+swiper.on('slideChangeTransitionStart', () => {
+  const prevSlide = swiper.slides[swiper.previousIndex];
+  const nextSlide = swiper.slides[swiper.activeIndex];
+
+  const h1 = getHeightFromSlide(prevSlide);
+  const h2 = getHeightFromSlide(nextSlide);
+
+  // stato iniziale reale
+  setHeight(h1);
+
+  // transizione verso nuovo stato (frame successivo)
+  requestAnimationFrame(() => {
+    setHeight(h2);
+  });
+});
+
+swiper.on('slideChangeTransitionEnd', () => {
+  const activeSlide = swiper.slides[swiper.activeIndex];
+  setHeight(getHeightFromSlide(activeSlide));
+});
+
+window.addEventListener('resize', () => {
+  const activeSlide = swiper.slides[swiper.activeIndex];
+  setHeight(getHeightFromSlide(activeSlide));
+});
+
+/* ---------- PHOTOSWIPE ---------- */
 
 const lightbox = new PhotoSwipeLightbox({
   gallery: '.swiper',
@@ -153,8 +198,22 @@ const lightbox = new PhotoSwipeLightbox({
   pswpModule: () => import(
     'https://cdn.jsdelivr.net/npm/photoswipe@5/dist/photoswipe.esm.js'
   ),
+
   wheelToZoom: true,
-  pinchToClose: true
+  pinchToClose: true,
+
+  bgOpacity: 0.8,
+
+  paddingFn: (viewportSize) => {
+    return {
+      top: viewportSize.y * 0.1,
+      bottom: viewportSize.y * 0.1,
+      left: viewportSize.x * 0.1,
+      right: viewportSize.x * 0.1
+    };
+  },
+
+  maxZoomLevel: 4
 });
 
 lightbox.init();
@@ -162,4 +221,3 @@ lightbox.init();
 
 </body>
 </html>
-
