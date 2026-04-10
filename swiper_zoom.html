@@ -1,243 +1,280 @@
 <!DOCTYPE html>
 <html lang="it">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Swiper + PhotoSwipe Pro</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swiper + PhotoSwipe Pro</title>
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@5/dist/photoswipe.css" />
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/photoswipe@5/dist/photoswipe.css"/>
 
-  <style>
-    /* =========================
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+  background: transparent;
+}
+
+.swiper {
+  width: 100%;
+  max-height: 100vh;
+  transition: height 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.swiper-wrapper {
+  align-items: center;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+  /* =========================
    COLORI GLOBALI
 ========================= */
 
-    :root {
-      --main-red: #e30613;
-      --white: #ffffff;
-    }
+:root {
+  --main-red: #e30613;
+  --white: #ffffff;
+}
 
-    /*==========================
-              BULLET
-    =========================*/
+/* =========================
+   BULLET
+========================= */
 
-    .swiper-pagination-bullet {
-      width: 10px;
-      height: 10px;
-      background: rgba(227, 6, 19, 0.3);
-      opacity: 1;
-      transition: all 0.3s cubic-bezier(0.65, 0, 0.35, 1);
-    }
+.swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background: rgba(227, 6, 19, 0.3);
+  opacity: 1;
+  transition: all 0.3s cubic-bezier(0.65, 0, 0.35, 1);
+}
 
-    .swiper-pagination-bullet-active {
-      background: var(--main-red);
-      transform: scale(1.3);
-    }
+.swiper-pagination-bullet-active {
+  background: var(--main-red);
+  transform: scale(1.3);
+}
 
-    /*==========================
-          FRECCE CUSTOM
-    ==========================*/
+/* =========================
+   FRECCE CUSTOM
+========================= */
 
-    /* Nascondo icone default */
-    .swiper-button-next::after,
-    .swiper-button-prev::after {
-      display: none;
-    }
+/* Nascondo icone default */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  display: none;
+}
 
-    /* Base frecce */
-    .swiper-button-next,
-    .swiper-button-prev {
-      width: 48px;
-      height: 48px;
-      background-color: var(--main-red);
-      border-radius: 50%;
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: 22px;
-      transition: transform 0.2s ease;
-    }
+/* Base frecce */
+.swiper-button-next,
+.swiper-button-prev {
+  width: 48px;
+  height: 48px;
+  background-color: var(--main-red);
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 22px;
+  transition: transform 0.2s ease;
+}
 
-    /* Hover leggero */
-    .swiper-button-next:hover,
-    .swiper-button-prev:hover {
-      transform: scale(1.1);
-    }
+/* Hover leggero */
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  transform: scale(1.1);
+}
 
-    /* Freccia DESTRA */
-    .swiper-button-next {
-      background-image: url("data:image/svg+xml;utf8,\
+/* Freccia DESTRA */
+.swiper-button-next {
+  background-image: url("data:image/svg+xml;utf8,\
   <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>\
   <path d='M8 5l8 7-8 7' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/>\
   </svg>");
-    }
+}
 
-    /* Freccia SINISTRA */
-    .swiper-button-prev {
-      background-image: url("data:image/svg+xml;utf8,\
+/* Freccia SINISTRA */
+.swiper-button-prev {
+  background-image: url("data:image/svg+xml;utf8,\
   <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>\
   <path d='M16 5l-8 7 8 7' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/>\
   </svg>");
-    }
-  </style>
+}
+</style>
 </head>
-
 <body>
 
-  <div class="swiper">
-    <div class="swiper-wrapper">
+<div class="swiper">
+  <div class="swiper-wrapper">
 
-      <div class="swiper-slide">
-        <a href="images/img1.jpg" data-pswp-width="1440" data-pswp-height="1440">
-          <img src="images/img1.jpg">
-        </a>
-      </div>
-
-      <div class="swiper-slide">
-        <a href="images/img2.jpg" data-pswp-width="675" data-pswp-height="675">
-          <img src="images/img2.jpg">
-        </a>
-      </div>
-
-      <div class="swiper-slide">
-        <a href="images/img3.jpg" data-pswp-width="1440" data-pswp-height="1800">
-          <img src="images/img3.jpg">
-        </a>
-      </div>
-
-      <div class="swiper-slide">
-        <a href="images/img4.jpg" data-pswp-width="1440" data-pswp-height="1800">
-          <img src="images/img4.jpg">
-        </a>
-      </div>
-
-      <div class="swiper-slide">
-        <a href="images/img5.jpg" data-pswp-width="1280" data-pswp-height="1600">
-          <img src="images/img5.jpg">
-        </a>
-      </div>
-
-      <div class="swiper-slide">
-        <a href="images/img6.jpg" data-pswp-width="1280" data-pswp-height="1600">
-          <img src="images/img6.jpg">
-        </a>
-      </div>
-
-      <div class="swiper-slide">
-        <a href="images/img7.jpg" data-pswp-width="1024" data-pswp-height="819">
-          <img src="images/img7.jpg">
-        </a>
-      </div>
-
-      <div class="swiper-slide">
-        <a href="images/img8.jpg" data-pswp-width="960" data-pswp-height="437">
-          <img src="images/img8.jpg">
-        </a>
-      </div>
-
-      <div class="swiper-slide">
-        <a href="images/img9.jpg" data-pswp-width="1024" data-pswp-height="1280">
-          <img src="images/img9.jpg">
-        </a>
-      </div>
-
-      <div class="swiper-slide">
-        <a href="images/img10.jpg" data-pswp-width="1024" data-pswp-height="1280">
-          <img src="images/img10.jpg">
-        </a>
-      </div>
-
+    <div class="swiper-slide">
+      <a href="images/img1.jpg" data-pswp-width="1440" data-pswp-height="1440">
+        <img src="images/img1.jpg">
+      </a>
     </div>
 
-    <div class="swiper-pagination"></div>
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
+    <div class="swiper-slide">
+      <a href="images/img2.jpg" data-pswp-width="675" data-pswp-height="675">
+        <img src="images/img2.jpg">
+      </a>
+    </div>
+
+    <div class="swiper-slide">
+      <a href="images/img3.jpg" data-pswp-width="1440" data-pswp-height="1800">
+        <img src="images/img3.jpg">
+      </a>
+    </div>
+
+    <div class="swiper-slide">
+      <a href="images/img4.jpg" data-pswp-width="1440" data-pswp-height="1800">
+        <img src="images/img4.jpg">
+      </a>
+    </div>
+
+    <div class="swiper-slide">
+      <a href="images/img5.jpg" data-pswp-width="1280" data-pswp-height="1600">
+        <img src="images/img5.jpg">
+      </a>
+    </div>
+
+    <div class="swiper-slide">
+      <a href="images/img6.jpg" data-pswp-width="1280" data-pswp-height="1600">
+        <img src="images/img6.jpg">
+      </a>
+    </div>
+
+    <div class="swiper-slide">
+      <a href="images/img7.jpg" data-pswp-width="1024" data-pswp-height="819">
+        <img src="images/img7.jpg">
+      </a>
+    </div>
+
+    <div class="swiper-slide">
+      <a href="images/img8.jpg" data-pswp-width="960" data-pswp-height="437">
+        <img src="images/img8.jpg">
+      </a>
+    </div>
+
+    <div class="swiper-slide">
+      <a href="images/img9.jpg" data-pswp-width="1024" data-pswp-height="1280">
+        <img src="images/img9.jpg">
+      </a>
+    </div>
+
+    <div class="swiper-slide">
+      <a href="images/img10.jpg" data-pswp-width="1024" data-pswp-height="1280">
+        <img src="images/img10.jpg">
+      </a>
+    </div>
+
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+  <div class="swiper-pagination"></div>
+  <div class="swiper-button-next"></div>
+  <div class="swiper-button-prev"></div>
+</div>
 
-  <script type="module">
-    import PhotoSwipeLightbox from
-      'https://cdn.jsdelivr.net/npm/photoswipe@5/dist/photoswipe-lightbox.esm.js';
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
-    /* ---------- SWIPER ---------- */
+<script type="module">
+import PhotoSwipeLightbox from 
+'https://cdn.jsdelivr.net/npm/photoswipe@5/dist/photoswipe-lightbox.esm.js';
 
-    const swiper = new Swiper('.swiper', {
-      loop: true,
-      speed: 700,
-      pagination: { el: '.swiper-pagination', clickable: true },
-      navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-      autoplay: { delay: 2500, disableOnInteraction: false },
-    });
+/* ---------- SWIPER ---------- */
 
-    /* ---------- HEIGHT ENGINE ---------- */
+const swiper = new Swiper('.swiper', {
+  loop: true,
+  speed: 700,
+  pagination: { el: '.swiper-pagination', clickable: true },
+  navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+  autoplay: { delay: 2500, disableOnInteraction: false },
+});
 
-    function getHeightFromSlide(slide) {
-      const link = slide?.querySelector('a');
-      if (!link) return swiper.height;
+/* ---------- HEIGHT ENGINE ---------- */
 
-      const w = parseInt(link.dataset.pswpWidth);
-      const h = parseInt(link.dataset.pswpHeight);
-      if (!w || !h) return swiper.height;
+function getHeightFromSlide(slide) {
+  const link = slide?.querySelector('a');
+  if (!link) return swiper.height;
 
-      let height = swiper.width * (h / w);
-      return Math.min(height, window.innerHeight);
-    }
+  const w = parseInt(link.dataset.pswpWidth);
+  const h = parseInt(link.dataset.pswpHeight);
+  if (!w || !h) return swiper.height;
 
-    function setHeight(value) {
-      swiper.el.style.height = value + 'px';
-    }
+  let height = swiper.width * (h / w);
+  return Math.min(height, window.innerHeight);
+}
 
-    /* ---------- TRANSIZIONE PULITA ---------- */
+function setHeight(value) {
+  swiper.el.style.height = value + 'px';
+}
 
-    swiper.on('init', () => {
-      const firstSlide = swiper.slides[swiper.activeIndex];
-      setHeight(getHeightFromSlide(firstSlide));
-    });
+/* ---------- TRANSIZIONE PULITA ---------- */
 
-    swiper.on('slideChangeTransitionStart', () => {
-      const prevSlide = swiper.slides[swiper.previousIndex];
-      const nextSlide = swiper.slides[swiper.activeIndex];
+swiper.on('init', () => {
+  const firstSlide = swiper.slides[swiper.activeIndex];
+  setHeight(getHeightFromSlide(firstSlide));
+});
 
-      const h1 = getHeightFromSlide(prevSlide);
-      const h2 = getHeightFromSlide(nextSlide);
+swiper.on('slideChangeTransitionStart', () => {
+  const prevSlide = swiper.slides[swiper.previousIndex];
+  const nextSlide = swiper.slides[swiper.activeIndex];
 
-      // stato iniziale reale
-      setHeight(h1);
+  const h1 = getHeightFromSlide(prevSlide);
+  const h2 = getHeightFromSlide(nextSlide);
 
-      // transizione verso nuovo stato (frame successivo)
-      requestAnimationFrame(() => {
-        setHeight(h2);
-      });
-    });
+  // stato iniziale reale
+  setHeight(h1);
 
-    swiper.on('slideChangeTransitionEnd', () => {
-      const activeSlide = swiper.slides[swiper.activeIndex];
-      setHeight(getHeightFromSlide(activeSlide));
-    });
+  // transizione verso nuovo stato (frame successivo)
+  requestAnimationFrame(() => {
+    setHeight(h2);
+  });
+});
 
-    window.addEventListener('resize', () => {
-      const activeSlide = swiper.slides[swiper.activeIndex];
-      setHeight(getHeightFromSlide(activeSlide));
-    });
+swiper.on('slideChangeTransitionEnd', () => {
+  const activeSlide = swiper.slides[swiper.activeIndex];
+  setHeight(getHeightFromSlide(activeSlide));
+});
 
-    /* ---------- PHOTOSWIPE ---------- */
+window.addEventListener('resize', () => {
+  const activeSlide = swiper.slides[swiper.activeIndex];
+  setHeight(getHeightFromSlide(activeSlide));
+});
 
-    const lightbox = new PhotoSwipeLightbox({
-      gallery: '.swiper',
-      children: 'a',
-      pswpModule: () => import(
-        'https://cdn.jsdelivr.net/npm/photoswipe@5/dist/photoswipe.esm.js'
-      ),
-      wheelToZoom: true,
-      pinchToClose: true
-    });
+/* ---------- PHOTOSWIPE ---------- */
 
-    lightbox.init();
-  </script>
+const lightbox = new PhotoSwipeLightbox({
+  gallery: '.swiper',
+  children: 'a',
+  pswpModule: () => import(
+    'https://cdn.jsdelivr.net/npm/photoswipe@5/dist/photoswipe.esm.js'
+  ),
+  wheelToZoom: true,
+  pinchToClose: true
+});
+
+lightbox.init();
+</script>
 
 </body>
-
 </html>
